@@ -9,14 +9,14 @@ $(document).ready(function() {
         answerIndex1: 2
     };
 
-    var intervalID;
     var showNextID;
-    var time = 30;
-    var totalQuestions = 2;
+    var time = 21;
+    var questionIndex = 0;	// tracks current question
+    var maxQuestionIndex = 1;	// number of questions - 1
     var correct = 0;
     var wrong = 0;
 
-    intervalID = setInterval(updateCount, 1000);
+    var intervalID = setInterval(updateClock, 1000);
 
     displayNewTrivia(0);
 
@@ -29,7 +29,6 @@ $(document).ready(function() {
         var questionText = triviaObj[question];
         var newDiv = $('<div></div>').text(questionText);
         newDiv.attr('class', 'question');
-        // newDiv.attr('id', )
 
         // display choices
         var choices = 'choices' + index;
@@ -38,28 +37,50 @@ $(document).ready(function() {
         for (var i = 0; i < choiceArray.length; i++) {
         	var a = $('<p></p>').text(choiceArray[i]);
         	a.attr('class', 'answer');
-        	a.attr('class', choices);
         	a.attr('id', i);
         	newDiv.append(a);
         }
     }
 
-    function updateCount() {
+    function updateClock() {
+    	// decrements time left, checks if time has run out and stops counter
     	time --;
     	$('#timeDisp').text(time);
     	if (time <= 0) {
-    		inccorectAnswer();
+    		incorrectAnswer();
     		clearInterval(intervalID);
     	}
     }
 
     function correctAnswer() {
-    	// console.log('Correct');
+    	console.log('Correct');
     }
 
-    function inccorectAnswer() {
-    	// console.log('Wrong');
+    function incorrectAnswer() {
+    	console.log('Wrong');
     }
+
+    $(document).on("click", ".answer", function () {
+    	// user clicks an answer
+    	// get answer selection
+    	var selection = event.target.id;
+    	console.log('selection: ', selection);
+    	// check if answer is correct
+    	console.log('answer: ', triviaObj['answerIndex' + questionIndex]);
+    	if (selection == triviaObj['answerIndex' + questionIndex]) {
+    		// if correct use correctAnswer to update display
+    		correct ++;
+    		correctAnswer();
+    	} else {
+    		// else use incorrectAnswer to update display
+    		wrong ++;
+    		incorrectAnswer();
+    	}
+    	// wait a few seconds
+    	// go to next question
+    	// reset time
+
+    });
 
 
 });
