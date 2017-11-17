@@ -10,10 +10,17 @@ $(document).ready(function() {
     };
 
     var intervalID;
+    var showNextID;
     var time = 30;
-    var questionIndex = 0;
+    var totalQuestions = 2;
+    var correct = 0;
+    var wrong = 0;
 
-    function displayTrivia(index) {
+    intervalID = setInterval(updateCount, 1000);
+
+    displayNewTrivia(0);
+
+    function displayNewTrivia(index) {
     	// empty holder div
     	$(questionDiv).empty();
 
@@ -31,33 +38,28 @@ $(document).ready(function() {
         for (var i = 0; i < choiceArray.length; i++) {
         	var a = $('<p></p>').text(choiceArray[i]);
         	a.attr('class', 'answer');
-        	a.attr('class', index);
+        	a.attr('class', choices);
         	a.attr('id', i);
         	newDiv.append(a);
         }
     }
 
-    // function displayTrivia(index) {
-    // 	// display question
-    //     var question = 'question' + index;
-    //     var questionText = triviaObj[question];
-    //     var newDiv = $('<div></div>').text(questionText);
-    //     newDiv.attr('class', 'question');
-    //     // newDiv.attr('id', )
+    function updateCount() {
+    	time --;
+    	$('#timeDisp').text(time);
+    	if (time <= 0) {
+    		inccorectAnswer();
+    		clearInterval(intervalID);
+    	}
+    }
 
-    //     // display choices
-    //     var choices = 'choices' + index;
-    //     var choiceArray = triviaObj[choices];
-    //     $(questionDiv).append(newDiv);
-    //     for (var i = 0; i < choiceArray.length; i++) {
-    //     	var a = $('<p></p>').text(choiceArray[i]);
-    //     	a.attr('class', 'answer');
-    //     	a.attr('class', index);
-    //     	a.attr('id', i);
-    //     	newDiv.append(a);
-    //     }
-    // }
+    function correctAnswer() {
+    	// console.log('Correct');
+    }
 
-    // displayTrivia(0);
+    function inccorectAnswer() {
+    	// console.log('Wrong');
+    }
+
 
 });
