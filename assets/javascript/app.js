@@ -62,24 +62,26 @@ $(document).ready(function() {
     	$('#timeDisp').text(time);
     	if (time <= 0) {
     		timesUp();
-    		clearInterval(intervalID);
+    		// clearInterval(intervalID);
     	}
     }
 
     function timesUp() {
     	wrong ++;
     	// console.log('Out of time');
-    	displayResults();
+    	clearInterval(intervalID);
     }
 
     function correctAnswer() {
     	correct ++;
     	// console.log('Correct');
+    	clearInterval(intervalID);
     }
 
     function incorrectAnswer() {
     	wrong ++;
     	// console.log('Wrong');
+    	clearInterval(intervalID);
     }
 
     $(document).on("click", ".answer", function () {
