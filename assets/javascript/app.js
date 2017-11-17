@@ -42,38 +42,58 @@ $(document).ready(function() {
         }
     }
 
+    function displayResults() {
+    	$(questionDiv).empty();
+
+    	var newDiv = $('<div></div>').text('Game over.');
+    	var winDiv = $('<div></div>').text('You got ' + correct +' questions correct');
+    	var lossDiv = $('<div></div>').text('You got ' + wrong +' questions wrong');
+    	var resetBtn = $('<button></button').text('Try again');
+
+    	newDiv.append(winDiv);
+    	newDiv.append(lossDiv);
+    	newDiv.append(resetBtn);
+    	$(questionDiv).append(newDiv);
+    }
+
     function updateClock() {
     	// decrements time left, checks if time has run out and stops counter
     	time --;
     	$('#timeDisp').text(time);
     	if (time <= 0) {
-    		incorrectAnswer();
+    		timesUp();
     		clearInterval(intervalID);
     	}
     }
 
+    function timesUp() {
+    	wrong ++;
+    	// console.log('Out of time');
+    	displayResults();
+    }
+
     function correctAnswer() {
-    	console.log('Correct');
+    	correct ++;
+    	// console.log('Correct');
     }
 
     function incorrectAnswer() {
-    	console.log('Wrong');
+    	wrong ++;
+    	// console.log('Wrong');
     }
 
     $(document).on("click", ".answer", function () {
     	// user clicks an answer
     	// get answer selection
     	var selection = event.target.id;
-    	console.log('selection: ', selection);
+    	// console.log('selection: ', selection);
     	// check if answer is correct
-    	console.log('answer: ', triviaObj['answerIndex' + questionIndex]);
+    	// console.log('answer: ', triviaObj['answerIndex' + questionIndex]);
     	if (selection == triviaObj['answerIndex' + questionIndex]) {
     		// if correct use correctAnswer to update display
-    		correct ++;
     		correctAnswer();
     	} else {
     		// else use incorrectAnswer to update display
-    		wrong ++;
     		incorrectAnswer();
     	}
     	// wait a few seconds
