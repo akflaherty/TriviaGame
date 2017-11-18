@@ -103,7 +103,10 @@ $(document).ready(function() {
     		var header = $('<h3>').text('That\s inccoret.');
     	}
     	$('#answerDiv').append(header);
+    	var correctAns = triviaObj['choices' + questionIndex][triviaObj['answerIndex' + questionIndex]];
     	questionIndex ++;
+    	var ansP = $('<p>').text('The correct answer is ' + correctAns);
+    	$('#answerDiv').append(ansP);
     	if (questionIndex <= maxQuestionIndex) {
     		setTimeout(displayNewTrivia, 10000, questionIndex);
     	} else {
