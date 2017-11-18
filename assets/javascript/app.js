@@ -9,51 +9,58 @@ $(document).ready(function() {
         answerIndex1: 2
     };
 
-    var showNextID;
-    var time = 21;
+    // var showNextID;
+    var time = 11;
     var questionIndex = 0;	// tracks current question
     var maxQuestionIndex = 1;	// number of questions - 1
     var correct = 0;
     var wrong = 0;
 
-    var intervalID = setInterval(updateClock, 1000);
-
-    displayNewTrivia(0);
+    // var intervalID = setInterval(updateClock, 1000);
+    var intervalID;
+    
+    displayNewTrivia(questionIndex);
 
     function displayNewTrivia(index) {
-    	// empty holder div
-    	$(questionDiv).empty();
+    	// setup timer
+    	time = 11;
+    	intervalID = setInterval(updateClock, 1000);
 
-    	// display question
+        // empty holder divs
+        $('#questionDiv').empty();
+        $('#answerDiv').empty();
+        console.log('next question');
+        // display question
         var question = 'question' + index;
         var questionText = triviaObj[question];
         var newDiv = $('<div></div>').text(questionText);
-        newDiv.attr('class', 'question');
+        // newDiv.attr('class', 'question');
+        $('#questionDiv').prepend(newDiv);
 
         // display choices
         var choices = 'choices' + index;
         var choiceArray = triviaObj[choices];
-        $(questionDiv).append(newDiv);
         for (var i = 0; i < choiceArray.length; i++) {
-        	var a = $('<p></p>').text(choiceArray[i]);
-        	a.attr('class', 'answer');
-        	a.attr('id', i);
-        	newDiv.append(a);
+            var a = $('<p></p>').text(choiceArray[i]);
+            a.attr('class', 'answer');
+            a.attr('id', i);
+            $('#answerDiv').append(a);
         }
     }
 
     function displayResults() {
-    	$(questionDiv).empty();
+    	$('#questionDiv').empty();
 
-    	var newDiv = $('<div></div>').text('Game over.');
+    	var newHeader = $('<h2></h2>').text('Game over.');
     	var winDiv = $('<div></div>').text('You got ' + correct +' questions correct');
     	var lossDiv = $('<div></div>').text('You got ' + wrong +' questions wrong');
     	var resetBtn = $('<button></button').text('Try again');
+    	resetBtn.attr('id', 'reset');
 
-    	newDiv.append(winDiv);
-    	newDiv.append(lossDiv);
-    	newDiv.append(resetBtn);
-    	$(questionDiv).append(newDiv);
+    	$('#questionDiv').append(newHeader);
+    	$('#questionDiv').append(winDiv);
+    	$('#questionDiv').append(lossDiv);
+    	$('#questionDiv').append(resetBtn);
     }
 
     function updateClock() {
@@ -68,20 +75,42 @@ $(document).ready(function() {
 
     function timesUp() {
     	wrong ++;
-    	// console.log('Out of time');
+    	console.log('Out of time');
     	clearInterval(intervalID);
+    	questionResult('time');
     }
 
     function correctAnswer() {
     	correct ++;
-    	// console.log('Correct');
+    	console.log('Correct');
     	clearInterval(intervalID);
+    	questionResult('correct');
     }
 
     function incorrectAnswer() {
     	wrong ++;
-    	// console.log('Wrong');
+    	console.log('Wrong');
     	clearInterval(intervalID);
+    	questionResult('incorrect');
+    }
+
+    function questionResult(status) {
+    	console.log('Result');
+    	$('#answerDiv').empty();
+    	if (status == 'time') {
+    		// ran out of time
+    		
+    	} else if (status == 'correct') {
+    		// correct
+    	} else {
+    		// incorrect
+    	}
+    	questionIndex ++;
+    	if (questionIndex <= maxQuestionIndex) {
+    		setTimeout(displayNewTrivia, 10000, questionIndex);
+    	} else {
+    		displayResults();
+    	}
     }
 
     $(document).on("click", ".answer", function () {
@@ -98,11 +127,18 @@ $(document).ready(function() {
     		// else use incorrectAnswer to update display
     		incorrectAnswer();
     	}
-    	// wait a few seconds
-    	// go to next question
-    	// reset time
 
     });
 
+    $(document).on("click", '#reset', function() {
+        var time = 11;
+        var questionIndex = 0; // tracks current question
+        var maxQuestionIndex = 1; // number of questions - 1
+        var correct = 0;
+        var wrong = 0;
+
+        displayNewTrivia(questionIndex);
+        intervalID = setInterval(updateClock, 1000);
+    })
 
 });
