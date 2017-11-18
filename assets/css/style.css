@@ -9,9 +9,12 @@ div {
 	background-color: #7a9dff;
 	padding: 10px;
 	text-align: center;
+	width: 80%;
+	margin: 0 auto;
+	padding: 0 auto;
 }
 
-p {
+h1, p {
 	text-align: center;
 }
 
