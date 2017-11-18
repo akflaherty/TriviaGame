@@ -8,6 +8,11 @@ body {
 div {
 	background-color: #7a9dff;
 	padding: 10px;
+	text-align: center;
+}
+
+p {
+	text-align: center;
 }
 
 #answerDiv {

@@ -6,34 +6,34 @@ $(document).ready(function() {
         answerIndex0: 3,
         question1: 'Who was the third US president?',
         choices1: ['Tyler', 'Adams', 'Jefferson', 'Roosevelt'],
-        answerIndex1: 2
+        answerIndex1: 2,
+        question2: 'On average, what kind of cheese do Americans eat the most of?'
+        choices2: ['Mozzarella', 'Cheddar', 'American', 'Swiss'],
+        answerIndex2: 0
     };
 
-    // var showNextID;
     var time;
     var questionIndex = 0;	// tracks current question
-    var maxQuestionIndex = 1;	// number of questions - 1
+    var maxQuestionIndex = 2;	// number of questions - 1
     var correct = 0;
     var wrong = 0;
-
-    // var intervalID = setInterval(updateClock, 1000);
     var intervalID;
 
     displayNewTrivia(questionIndex);
 
     function displayNewTrivia(index) {
     	// setup timer
-    	time = 16;
+    	time = 11;
     	intervalID = setInterval(updateClock, 1000);
 
         // empty holder divs
         $('#questionDiv').empty();
         $('#answerDiv').empty();
+
         // display question
         var question = 'question' + index;
         var questionText = triviaObj[question];
         var newDiv = $('<div></div>').text(questionText);
-        // newDiv.attr('class', 'question');
         $('#questionDiv').prepend(newDiv);
 
         // display choices
@@ -108,9 +108,9 @@ $(document).ready(function() {
     	var ansP = $('<p>').text('The correct answer is ' + correctAns);
     	$('#answerDiv').append(ansP);
     	if (questionIndex <= maxQuestionIndex) {
-    		setTimeout(displayNewTrivia, 8000, questionIndex);
+    		setTimeout(displayNewTrivia, 6000, questionIndex);
     	} else {
-    		setTimeout(displayResults, 8000);
+    		setTimeout(displayResults, 6000);
     	}
     }
 
@@ -118,7 +118,6 @@ $(document).ready(function() {
     	// user clicks an answer
     	// get answer selection
     	var selection = event.target.id;
-    	// check if answer is correct
     	if (selection == triviaObj['answerIndex' + questionIndex]) {
     		// if correct use correctAnswer to update display
     		correctAnswer();
@@ -131,8 +130,7 @@ $(document).ready(function() {
 
     $(document).on("click", '#reset', function() {
         var time = 11;
-        var questionIndex = 0; // tracks current question
-        var maxQuestionIndex = 1; // number of questions - 1
+        var questionIndex = 0;
         var correct = 0;
         var wrong = 0;
 
