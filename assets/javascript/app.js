@@ -10,7 +10,7 @@ $(document).ready(function() {
     };
 
     // var showNextID;
-    var time = 11;
+    var time;
     var questionIndex = 0;	// tracks current question
     var maxQuestionIndex = 1;	// number of questions - 1
     var correct = 0;
@@ -18,18 +18,17 @@ $(document).ready(function() {
 
     // var intervalID = setInterval(updateClock, 1000);
     var intervalID;
-    
+
     displayNewTrivia(questionIndex);
 
     function displayNewTrivia(index) {
     	// setup timer
-    	time = 11;
+    	time = 16;
     	intervalID = setInterval(updateClock, 1000);
 
         // empty holder divs
         $('#questionDiv').empty();
         $('#answerDiv').empty();
-        console.log('next question');
         // display question
         var question = 'question' + index;
         var questionText = triviaObj[question];
@@ -50,6 +49,7 @@ $(document).ready(function() {
 
     function displayResults() {
     	$('#questionDiv').empty();
+    	$('#answerDiv').empty();
 
     	var newHeader = $('<h2></h2>').text('Game over.');
     	var winDiv = $('<div></div>').text('You got ' + correct +' questions correct');
@@ -69,47 +69,45 @@ $(document).ready(function() {
     	$('#timeDisp').text(time);
     	if (time <= 0) {
     		timesUp();
-    		// clearInterval(intervalID);
     	}
     }
 
     function timesUp() {
     	wrong ++;
-    	console.log('Out of time');
     	clearInterval(intervalID);
     	questionResult('time');
     }
 
     function correctAnswer() {
     	correct ++;
-    	console.log('Correct');
     	clearInterval(intervalID);
     	questionResult('correct');
     }
 
     function incorrectAnswer() {
     	wrong ++;
-    	console.log('Wrong');
     	clearInterval(intervalID);
     	questionResult('incorrect');
     }
 
     function questionResult(status) {
-    	console.log('Result');
     	$('#answerDiv').empty();
     	if (status == 'time') {
     		// ran out of time
-    		
+    		var header = $('<h3>').text('Time\'s up.');
     	} else if (status == 'correct') {
     		// correct
+    		var header = $('<h3>').text('That\'s right!');
     	} else {
     		// incorrect
+    		var header = $('<h3>').text('That\s inccoret.');
     	}
+    	$('#answerDiv').append(header);
     	questionIndex ++;
     	if (questionIndex <= maxQuestionIndex) {
     		setTimeout(displayNewTrivia, 10000, questionIndex);
     	} else {
-    		displayResults();
+    		setTimeout(displayResults, 10000);
     	}
     }
 
@@ -117,9 +115,7 @@ $(document).ready(function() {
     	// user clicks an answer
     	// get answer selection
     	var selection = event.target.id;
-    	// console.log('selection: ', selection);
     	// check if answer is correct
-    	// console.log('answer: ', triviaObj['answerIndex' + questionIndex]);
     	if (selection == triviaObj['answerIndex' + questionIndex]) {
     		// if correct use correctAnswer to update display
     		correctAnswer();
