@@ -1,0 +1,15 @@
+h1, h2, h3, p, div {
+	font-family: 'Arvo', serif;
+}
+body {
+	background-image: url('../images/swirl_pattern.png');
+}
+
+div {
+	background-color: #7a9dff;
+	padding: 10px;
+}
+
+#answerDiv {
+	text-align: center;
+}

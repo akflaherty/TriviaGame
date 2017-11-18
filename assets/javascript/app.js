@@ -108,9 +108,9 @@ $(document).ready(function() {
     	var ansP = $('<p>').text('The correct answer is ' + correctAns);
     	$('#answerDiv').append(ansP);
     	if (questionIndex <= maxQuestionIndex) {
-    		setTimeout(displayNewTrivia, 10000, questionIndex);
+    		setTimeout(displayNewTrivia, 8000, questionIndex);
     	} else {
-    		setTimeout(displayResults, 10000);
+    		setTimeout(displayResults, 8000);
     	}
     }
 
