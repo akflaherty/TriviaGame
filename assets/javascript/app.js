@@ -7,7 +7,7 @@ $(document).ready(function() {
         question1: 'Who was the third US president?',
         choices1: ['Tyler', 'Adams', 'Jefferson', 'Roosevelt'],
         answerIndex1: 2,
-        question2: 'On average, what kind of cheese do Americans eat the most of?'
+        question2: 'On average, what kind of cheese do Americans eat the most of?',
         choices2: ['Mozzarella', 'Cheddar', 'American', 'Swiss'],
         answerIndex2: 0
     };
