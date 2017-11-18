@@ -134,7 +134,6 @@ $(document).ready(function() {
         var wrong = 0;
 
         displayNewTrivia(questionIndex);
-        intervalID = setInterval(updateClock, 1000);
     })
 
 });
